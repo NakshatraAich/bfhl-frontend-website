@@ -5,7 +5,7 @@ const Form = () => {
   const [inputValue, setInputValue] = useState('');
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(''); // Changed from array to string
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -57,12 +57,7 @@ const Form = () => {
   };
 
   const handleSelectChange = (event) => {
-    const { options } = event.target;
-    const selectedValues = Array.from(options)
-      .filter(option => option.selected)
-      .map(option => option.value);
-
-    setSelectedOptions(selectedValues);
+    setSelectedOption(event.target.value);
   };
 
   const renderResponse = () => {
@@ -71,7 +66,7 @@ const Form = () => {
     return (
       <div className='mt-4'>
         <h2 className='text-lg font-semibold mb-2'>Response:</h2>
-        {selectedOptions.includes('Numbers') && (
+        {selectedOption === 'Numbers' && (
           <div className='mb-4'>
             <h3 className='text-md font-medium mb-1'>Numbers:</h3>
             <ul className='list-disc pl-5'>
@@ -81,7 +76,7 @@ const Form = () => {
             </ul>
           </div>
         )}
-        {selectedOptions.includes('Alphabets') && (
+        {selectedOption === 'Alphabets' && (
           <div className='mb-4'>
             <h3 className='text-md font-medium mb-1'>Alphabets:</h3>
             <ul className='list-disc pl-5'>
@@ -91,7 +86,7 @@ const Form = () => {
             </ul>
           </div>
         )}
-        {selectedOptions.includes('Highest lowercase alphabet') && (
+        {selectedOption === 'Highest lowercase alphabet' && (
           <div className='mb-4'>
             <h3 className='text-md font-medium mb-1'>Highest Lowercase Alphabet:</h3>
             <ul className='list-disc pl-5'>
@@ -131,12 +126,13 @@ const Form = () => {
       {response && (
         <div>
           <label className='block text-lg font-medium mb-2'>
-            Select options to display:
+            Select an option to display:
             <select 
-              multiple={true} 
-              onChange={handleSelectChange} 
+              value={selectedOption}
+              onChange={handleSelectChange}
               className='w-full mt-2 p-2 border border-gray-300 rounded-md'
             >
+              <option value="">Select an option</option>
               <option value="Alphabets">Alphabets</option>
               <option value="Numbers">Numbers</option>
               <option value="Highest lowercase alphabet">Highest lowercase alphabet</option>
