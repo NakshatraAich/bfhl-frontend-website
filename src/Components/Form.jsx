@@ -69,12 +69,12 @@ const Form = () => {
     if (!response) return null;
 
     return (
-      <div>
-        <h2>Response:</h2>
+      <div className='mt-4'>
+        <h2 className='text-lg font-semibold mb-2'>Response:</h2>
         {selectedOptions.includes('Numbers') && (
-          <div>
-            <h3>Numbers:</h3>
-            <ul>
+          <div className='mb-4'>
+            <h3 className='text-md font-medium mb-1'>Numbers:</h3>
+            <ul className='list-disc pl-5'>
               {response.numbers.map((num, index) => (
                 <li key={index}>{num}</li>
               ))}
@@ -82,9 +82,9 @@ const Form = () => {
           </div>
         )}
         {selectedOptions.includes('Alphabets') && (
-          <div>
-            <h3>Alphabets:</h3>
-            <ul>
+          <div className='mb-4'>
+            <h3 className='text-md font-medium mb-1'>Alphabets:</h3>
+            <ul className='list-disc pl-5'>
               {response.alphabets.map((char, index) => (
                 <li key={index}>{char}</li>
               ))}
@@ -92,9 +92,9 @@ const Form = () => {
           </div>
         )}
         {selectedOptions.includes('Highest lowercase alphabet') && (
-          <div>
-            <h3>Highest Lowercase Alphabet:</h3>
-            <ul>
+          <div className='mb-4'>
+            <h3 className='text-md font-medium mb-1'>Highest Lowercase Alphabet:</h3>
+            <ul className='list-disc pl-5'>
               {response.highest_lowercase_alphabet.map((char, index) => (
                 <li key={index}>{char}</li>
               ))}
@@ -106,24 +106,37 @@ const Form = () => {
   };
 
   return (
-    <div className='flex flex-col gap-10 bg-red-500 border-2 p-10 border-black'>
-      <h1>API Input</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Input (JSON format):
-          <textarea
-            value={inputValue}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <button type="submit">Submit</button>
+    <div className='flex flex-col gap-8 p-8 max-w-md mx-auto bg-gray-100 border border-gray-300 rounded-lg shadow-md'>
+      <h1 className='text-2xl font-bold mb-4'>API Input</h1>
+      <form onSubmit={handleSubmit} className='space-y-4'>
+        <div>
+          <label className='block text-lg font-medium mb-2'>
+            Input (JSON format):
+            <textarea
+              value={inputValue}
+              onChange={handleChange}
+              required
+              rows="6"
+              className='w-full p-2 border border-gray-300 rounded-md'
+            />
+          </label>
+        </div>
+        <button 
+          type="submit"
+          className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600'
+        >
+          Submit
+        </button>
       </form>
       {response && (
         <div>
-          <label>
+          <label className='block text-lg font-medium mb-2'>
             Select options to display:
-            <select multiple={true} onChange={handleSelectChange} className='dropdown'>
+            <select 
+              multiple={true} 
+              onChange={handleSelectChange} 
+              className='w-full mt-2 p-2 border border-gray-300 rounded-md'
+            >
               <option value="Alphabets">Alphabets</option>
               <option value="Numbers">Numbers</option>
               <option value="Highest lowercase alphabet">Highest lowercase alphabet</option>
@@ -133,9 +146,9 @@ const Form = () => {
         </div>
       )}
       {error && (
-        <div>
-          <h2>Error:</h2>
-          <p>{error}</p>
+        <div className='mt-4'>
+          <h2 className='text-lg font-semibold text-red-600'>Error:</h2>
+          <p className='text-red-600'>{error}</p>
         </div>
       )}
     </div>
